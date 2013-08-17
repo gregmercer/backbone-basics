@@ -1,0 +1,1 @@
+define(["jquery","underscore","backbone","text!templates/home/HomeTemplate.html","views/wine/WineListView"],function(e,t,n,r,i){var s=n.View.extend({el:"body",initialize:function(e){this.collection=this.options.collection},render:function(){var t=this.$el;t.empty(),t.append(r);var n=new i({collection:this.collection});return e(".span4").append(n.render().el),this}});return s});

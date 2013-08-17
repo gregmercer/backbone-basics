@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>  
+<html lang="en">
+<head> 
+<title>View 02</title>
+  
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://static.stackmob.com/js/json2-min.js"></script>
+    <script src="http://static.stackmob.com/js/underscore-1.4.4-min.js"></script>
+    <script src="http://static.stackmob.com/js/backbone-1.0.0-min.js"></script>
+    
+    <script>
+
+        (function($){
+
+          HomeView = Backbone.View.extend({
+
+            render: function() {
+              this.$el.append("<h1>My App</h1>");
+
+              return this;
+            }
+
+          });
+
+        })(jQuery);
+
+    </script>
+   
+</head> 
+<body></body>
+</html>

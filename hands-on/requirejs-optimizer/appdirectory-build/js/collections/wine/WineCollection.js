@@ -1,0 +1,1 @@
+define(["backbone","models/wine/Model"],function(e,t){var n=e.Collection.extend({Model:t,url:"#"});return n});

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>  
+<html lang="en">
+<head> 
+<title>Module 00</title>
+    
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://static.stackmob.com/js/json2-min.js"></script>
+    <script src="http://static.stackmob.com/js/underscore-1.4.4-min.js"></script>
+    <script src="http://static.stackmob.com/js/backbone-1.0.0-min.js"></script>
+    
+    <script>
+
+        var app = (function($){
+
+            var foo = "bar";
+
+            return {
+                name : 'module pattern',
+                set: function(name) {
+                    foo = name;
+                },
+                get: function() {
+                    return foo;
+                }
+            };
+        })(jQuery);
+
+        console.log(app.foo);
+        console.log(app.name);
+        console.log(app.get());
+        console.log(app.set('StackMob'));
+        console.log(app.get());
+	
+  	</script>
+
+</head> 
+<body></body>
+</html>
