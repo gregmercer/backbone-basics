@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>  
+<html lang="en">
+<head> 
+<title>Router 01</title>
+  
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://static.stackmob.com/js/json2-min.js"></script>
+    <script src="http://static.stackmob.com/js/underscore-1.4.4-min.js"></script>
+    <script src="http://static.stackmob.com/js/backbone-1.0.0-min.js"></script>
+    
+    <script>
+
+        (function($){    
+
+          // Wine Model
+
+          Wine = Backbone.Model.extend();
+          var firstWine = new Wine({
+              name: 'Clos Pegase'
+          });          
+            
+          // Wines Collection
+
+          Wines = Backbone.Collection.extend({
+              Model: Wine,
+              url: "#"
+          });
+          wines = new Wines();
+          wines.create(firstWine);
+
+          // Home View
+
+          HomeView = Backbone.View.extend({
+           
+            el: 'body',
+
+            initialize: function() {
+              this.template = _.template($('#home-view').html());
+              this.render();
+            },
+
+            render: function() {
+
+              var el = this.$el
+
+              el.empty();
+              el.append(this.template({text: "home"}));
+
+              this.listView = new ListView();
+              el.append(this.listView.render().el);                           
+
+              return this;
+            }
+   
+          });
+
+          // Add View
+      
+          AddView = Backbone.View.extend({
+
+            el: 'body',
+
+            initialize: function() {
+              this.template = _.template($('#add-view').html());
+              this.render();
+            },
+
+            render: function() {
+
+              var el = this.$el;
+              var template = this.template;              
+
+              el.empty();
+              el.append(this.template({text: "add"}));              
+
+              return this;
+            },
+          });
+
+          // List View
+
+          ListView = Backbone.View.extend({
+           
+            tagName: 'div',
+            className: 'container',
+
+            initialize: function() {
+              this.template = _.template($('#list-view').html());
+            },
+
+            render: function() {
+
+              var el = this.$el
+
+              el.empty();
+              el.append(this.template());
+
+              this.listItemView = new ListItemView();
+              el.append(this.listItemView.render().el);              
+
+              return this;
+            }
+   
+          });          
+
+          // List Item View
+      
+          ListItemView = Backbone.View.extend({
+
+            tagName: 'ul',
+
+            initialize: function() {
+              this.template = _.template($('#listitem-view').html());
+            },
+
+            render: function() {
+
+              var el = this.$el;
+              var template = this.template;              
+
+              el.empty();           
+
+              wines.each(function(wine){
+                console.log('wine = ' + wine.toJSON());
+                el.append(template(wine.toJSON()));
+              }); 
+
+              return this;
+            },
+          });          
+
+          // Router
+
+          AppRouter = Backbone.Router.extend({
+
+            routes:{
+                "":"home",
+                "add":"add",
+                "close":"home",
+            },
+
+            home:function() {
+              console.log('home');
+              new HomeView();
+            },
+
+            add:function() {
+              console.log('add');
+              new AddView();
+            }
+
+          });
+
+        }(jQuery));
+
+        $(document).ready(function () {
+          simpleApp = new AppRouter();
+          Backbone.history.start();
+        });
+
+    </script>
+
+
+    <script type="text/template" id="home-view">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Test App</a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#add">Add</a></li>
+          </ul>
+        </div>
+      </div>    
+      <div class="container">
+        hello - <%= text %> view
+      </div>
+    </script>
+
+    <script type="text/template" id="add-view">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Test App</a>
+          <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li class="active"><a href="#add">Add</a></li>
+          </ul>
+        </div>
+      </div>      
+      <div class="container">
+        Hello - <%= text %> view
+      </div>
+    </script>
+
+    <script type="text/template" id="list-view">
+    </script>
+
+    <script type="text/template" id="listitem-view">
+      <li><%= name %></li>
+    </script>      
+   
+</head> 
+
+<body></body>
+</html>
